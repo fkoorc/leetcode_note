@@ -1,0 +1,22 @@
+Random Access Iterators in C++
+Bidirectional Iterators in C++
+
+
+Random Access Iterator可以是bidirectional，也可以是Forward Iterator或是Input Iterator。
+
+Type of Iterator	Container
+Random Access	vector, deque
+bidirectional	list, map, multimap, set, multiset
+Type of Iterator	Limitations
+bidirectional	1.Relational Operators(<=, >=)
+2.Arithmetic Operators(+=, -=, +, -)
+3.Use of offset dereference operator ([ ])
+// iterator可以用在set, map或是vector
+distance(n.begin(), n.end()); // 計算兩個iterator的距離，第一個參數一定要比第二個還前面，不然會出現負數
+prev(it); // 前一個, it不會移動，只會output前一個iterator
+prev(it, 2); // 前兩個
+next(it); // 後一個，it不會移動，只會output後一個iterator
+next(it, 3) // 後三個
+advance(it, 3); // 往前進3個，it會被改變。
+begin(); // 第一個
+end(); // **最後一個的後面, 不是最後一個element**
