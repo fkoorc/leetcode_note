@@ -1,0 +1,27 @@
+#include <algorithm>
+// 對vector<T> v進行排序，預設是從小到大
+sort(v.begin(), v.end());
+sort(v.begin(), v.end(), greater<T>()); //從大到小排序
+sort(v.rbegin(), v.rend()); // 也是從大排到小，
+                            // 因為給了存放位置是從後面開始
+                            // 所以把最小值依序排在最後面
+// call by value
+sort(v.begin(), v.end(), [](int a, int b){
+    return a < b; // 從小到大排序
+});
+// call by reference
+sort(v.begin(), v.end(), [](int& a, int& b) {
+    return a < b;     
+});
+// sort vector<vector<int>>
+vector<vector<int>> nums;
+sort(nums.begin(), nums.end()); // nums[0] 小的在前面，nums[0]一樣則是nums[1]小的在前面。
+
+// 如果針對多維資料做排序
+vetor<vector<int>> nums = {{1, 5}, {3, 2}, {2, 2}, {1, 2},{4, 1}};
+sort(nums.begin(), nums.end(), [](vector<int>& a, vector<int>& b){
+    return a[1] < b[1]; // 只針對第二個element排序    
+});
+// 結果為
+// {{4, 1}, {3, 2}, {2, 2}, {1, 2}, {1, 5}}
+// 其中第二個element一樣的話，會照在nums出現的順序。
