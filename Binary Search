@@ -1,0 +1,15 @@
+// 找出vector中「大於或等於」val的「最小值」的位置
+// 所以 *it有可能等於 val
+auto it = lower_bound(v.begin(), v.end(), val);
+cout << it - v.begin() << endl; // 印出it所在的index
+// 找出vector中「大於」val的「最小值」的位置
+// *it 一定不等於val
+auto it = upper_bound(v.begin(), v.end(), val);
+cout << it - v.begin() << endl; // // 印出it所在的index
+也可以找非1D vector。例如
+
+vector<vector<int>> nums{{0,0,1},{0,2,2},{1,3,2}};
+vector<int> pattern{0, 2, 1};
+auto it = lower_bound(begin(nums), end(nums), pattern);
+cout << it - nums.begin() << endl;
+// 1
