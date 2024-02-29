@@ -1,0 +1,13 @@
+// Prefix
+nums = 0x1a; // 16進位使用0x
+nums = 030;  // 8進位使用0
+nums = 0b11000000; // 2進位使用0b
+// Postfix or suffix
+long  num1 = 999L;           // L 表示long
+unsigned long  num1 = 999UL; // U 表示unsigned, UL : unsigned long
+float  num1 = 999.02F;       // F : float
+double  num1 = 999.02L;      // L : long double
+//科學記號表示法：數值後面接E或e再接10的乘方
+314.159 = 3.14159E2
+float floatValue1 = 3.14e2
+float floatValue2 = 3.14e+2
