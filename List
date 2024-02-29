@@ -1,0 +1,15 @@
+使用double linked-list 實現，所以移動刪除都是O(1)
+ #include <list>
+// delcar
+list<int> l;
+// 常用function
+l.empty();
+l.size();
+l.push_back();
+l.pop_back();
+l.push_front();
+l.pop_front();
+//將一個list中的值移到另一個list中
+l.splice(iterator pos, list& x); // 把x所有的element接到l中pos的位置。
+l.splice (iterator pos, list& x, iterator i); // 把i單一個element從x中搬移到l中pos的位置。
+l.splice (iterator pos, list& x, iterator first, iterator last); // 把x中從first到last的element搬到l中pos的
