@@ -1,0 +1,41 @@
+#include <queue>
+// declare a priorityqueue
+priority_queue<T> pq;    // 預設為最大在上面
+priority_queue<T, vector<T>, greater<T> > pq;  //改成由小排到大
+// 自己定義compare function
+// 從小排到大，與sort的cmp相反
+auto cmp = [](int& a, int& b) {
+        return a > b;
+};
+priority_queue<int, vector<int>, decltype(cmp)> pq(cmp);
+// 常用function
+pq.empty(); //測試優先佇列是否為空。若為空回傳 true，反之 false。
+pq.size(); //回傳目前優先佇列中有幾個元素。
+pq.push(); //在優先佇列中加入一個元素。
+pq.pop(); //移除目前優先佇列中優先順序最高的元素。
+pq.top(); //取得目前優先佇列中優先順序最高元素的 constant reference。
+
+
+###
+make_heap
+因為使用priority_queue會有額外的空間，其實，vector就可以當成heap使用。這樣空間成本就會變成O(1)
+
+vector<int> nums{1, 3, 5, 2, 4, 6};
+make_heap(nums.begin(), nums.end()); // 預設是max-heap
+make_heap(nums.begin(), nums.end(), less<int>()); // max-heap
+make_heap(nums.begin(), nums.end(), greater<int>()); // min-heap
+
+// pop，因為pop_heap只是把element往最後移動，
+// 所以還要pop_back()
+pop_heap(nums.begin(), nums.end()); // for max-heap
+pop_heap(nums.begin(), nums.end(), greater<int>()); // for min-heap
+nums.pop_back();
+
+// push, 需要先把element放到最後
+nums.push_back(val);
+push_heap(nums.begin(), nums.end()); // for max-heap
+push_heap(nums.begin(), nums.end(), greater<int>()); // for min-heap
+
+// sort_heap
+sort_heap(nums.begin(), nums.end()); // 升序排序
+sort_heap(nums.begin(), nums.end(), greater<int>()); // 降序排序
