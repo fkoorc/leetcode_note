@@ -1,0 +1,9 @@
+#include <stack>
+// declare a stack
+stack<T> s;
+// 常用function
+s.empty(); //測試堆疊是否為空。若為空回傳 true，反之 false。
+s.size(); //回傳目前堆疊中有幾個元素。
+s.push(); //在堆疊中加入一個元素。
+s.pop(); //移除目前堆疊中最上層元素
+s.top(); //取得目前堆疊中最上層元素
