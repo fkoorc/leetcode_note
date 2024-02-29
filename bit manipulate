@@ -1,0 +1,16 @@
+// bitset
+std::bitset<8> bits{0b0000'1010}; // 宣告一個長度為8bits的變數
+bits.set(2);    // set bit2 to 1,         0b0000'1110
+bits.reset(3);  // set bit3 to 0,         0b0000'0110
+bits.flip(4);   // flip bit4(0->1, 1->0), 0b0001'0110
+bits.test(4);   // return bit4's status
+bits.count();   // 回傳set bits個數，和__builtin_popcount(bits) 一樣。
+bits.any();     // 任一個bit是set bit。
+bits.all();     // 所有bit都是set bit。
+bits.none();    // 沒有bit是set bit
+
+// gcc build in function, 以下是int版本
+__builtin_clz(0b0000'1100); // 回傳leading 0 有幾個 (28)
+__builtin_ctz(0b0000'1100); // 回傳Tailing 0有幾個(2)
+__builtin_ffs(0b0000'1100); // 回傳右起第一個1的位置。
+__builtin_popcount(0b0000'1100); // 回傳1的個數
