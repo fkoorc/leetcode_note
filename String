@@ -1,0 +1,65 @@
+string 是一個保存 char 的序列容器，把字串的記憶體管理責任交由 string 負責而不是 programmer，減輕了 C 語言風格字串的麻煩。
+
+提供了大量的字串操作函式。
+可與 C 語言風格字串雙向轉換。
+#include <string>
+//declare a string
+string s1;
+string s2{"hello"};    // 給予預設值
+// index
+for(int i = 0; i < s2.lenth(); ++i)
+    cout << s2[i] << endl;    // h(0), e(1), l(2), l(3), o(4), 從左到右
+// 重複char n次
+string s(n, c);
+// 常用function
+s1.clear();
+s1.empty();
+s1.size();
+s1.length();
+s1.count(s1.begin(), s1.end(), char); // 計算範圍內char出現的次數
+// 意思是"until the end of the string"
+string::npos;
+// 第一個出現某個char的位置。
+s1.find(c);
+// 最後一個出現某個char的位置。
+s1.rfind(c);
+// 找出substring
+string sub = "ll";
+// size_t find(string& str, int pos = 0);
+size_t pos = s1.find(sub); 
+// npos : until the end of the string
+if(pos == string::npos) { // 如果沒找到
+    
+}
+// 字串反轉
+reverse(s.begin(), s.end()); // 沒return，原本的string會反轉
+string(s.rbegin(), s.rend()); // 使用iterator來反轉，產生一個新的字串
+s1.push_back();        // 新增一個char到最後
+s2.pop_back();         // 移除最後的char
+string s = s1 + s2;    // 字串串接
+char c = s2[1];        // 取idx = 1的character，第二個位置。 c = 'e'
+string sub = s2.substr(pos, len); //從pos開始取len長度
+string sub2 = s2.substr(pos); // 從pos開始到最後
+// 移除string中某個char
+str.erase(remove(str.begin(), str.end(), '.'), str.end());
+// 計算某個char出現的次數
+count(str.begin(), str.end(), '.');
+// 刪除某一個char或是某個範圍的chars
+// 因為string 為immutable，所以移除char等於建立一個新的string
+// time complexity : O(N)
+str.erase(str.begin() + offset); // 移除begin開始第offset個char
+str.erase(str.begin(), str.begin() + 3); // 移除前3個char
+// 判斷函式
+isalpha(c);    // 是否為字母 'a'~'z' 'A'~'Z'
+isdigit(c);    // 是否為數字 '0'~'9'
+isalnum(c);    // 是否為字母和數字
+islower(c);    // 是否為小寫 'a' ~ 'z'
+isupper(c);    // 是否為大寫 'A' ~ 'Z'
+isspace(c);    // 是否為space 
+// 轉換成upper or lower case
+toupper(c);
+tolower(c);
+// convert string to integer
+stoi(str);
+// convert integer to strng
+to_string(val);
