@@ -1,0 +1,10 @@
+Deque (Double-Ended Queue，唸作 "deck")
+#include <queue>
+// declare a queue
+queue<T> q;
+// 常用function
+q.empty(); //測試佇列是否為空。若為空回傳 true，反之 false。
+q.size(); //回傳目前佇列中有幾個元素。
+q.push(); //在佇列中加入一個元素。
+q.pop(); //移除目前佇列中最前端元素 (即最早進入佇列的元素)。
+q.front(); //取得目前佇列中最前端元素的 reference
