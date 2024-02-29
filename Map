@@ -1,0 +1,56 @@
+Map 的 key-value 對應主要用於資料一對一映射 (one-to-one) 的情況。
+
+第一個稱為關鍵字 (key)，每個關鍵字只能在 map 中出現一次。
+第二個稱為該關鍵字的值 (value)。
+預設也是從小到大排序
+multimap 允許多個相同的key-value pair。
+unordered_map 不排序的map。
+unordered_multimap 不排序的multimap。
+#include <map>
+//declare a map
+map<T, U> m;
+map<T, U, greater<T>> m; // 從大排到小
+// 常用function
+m.empt();
+m.size();
+m.insert();
+m.erase();  // 刪除element
+m.clear();  // 清空所有的element
+m.count();  // 回傳有幾個element
+m.find();   // 回傳iterator
+m.swap(x);  // 把m和x的資料交換，m和x必須一樣的type
+// Traversal by reference
+for (const auto& item : m) {
+    cout << item.first << ":" << item.second << endl;
+}
+// Traversal by reference with name
+for(const auto& [key, value] : m) {
+    cout << key << ":" << value << endl;
+}
+// Traversal by iterator
+for (auto it = m.begin(); it != m.end(); ++it) {
+    cout << it->first << ":" << it->second << endl;
+    // 使用prev()取得iterator的前一個
+    cout << prev(it)->first << ":" << prev(it)->second << endl;
+}
+// 取第一個和最後一個element
+cout << m.begin()->first << endl;    // 取第一個element的值
+cout << m.rbegin()->first << endl;   // 取最後一個element的值，不可以直接使用end()
+cout << (--m.end())->first << end;   // 必須使用end()的前一個
+
+
+###
+使用unordered_map的時候，根據key產生出來的hash來查找value。既然是hash就會有碰撞問題。根據unordered_map reserve() in C++ STL敘述。
+
+As we know a Bucket is a slot in the container’s internal hash table to which all the element are assigned based on the hash value of their key . Buckets are numbered from 0 to bucket_count.
+
+如果增加的數目超出bucket_count，map就會自動變大bucket_slot，並且重新計算所有item的hash。
+
+When the Load Factor(load_factor) reaches a certain threshold, the container increases the number of buckets and rehashes the map.
+
+使用以下的程式碼，就是放大bucket到n，並且重新計算hash table。
+
+m.refresh(n);
+如果我們事先知道大小可以使用以下function直接保留bucket到n，避免超出threshold需要放大container。因為事先保留了n個bucket也可以避免hash collision。
+
+m.reserve(n);
