@@ -1,0 +1,18 @@
+array<T, N> arr; // T為型態，N為長度
+// 常用function
+arr.empty();
+arr.size();
+arr.at();
+arr.front();    // 第一個element, arr.at(0), arr[0]
+arr.back();    // 最後一個element, arr.at(N - 1), arr[N-1]
+arr.fill();    //把arr全部填入同一個值
+arr.swap();    //和另一個array交換。
+// Traversal
+for(int i = 0; i < arr.size(); ++i)
+    cout << arr[i] << endl;
+
+for(const auto& i : arr)
+    cout << i << endl;
+
+for(auto it = arr.begin(); it != arr.end(); ++it)
+    cout << *it << endl;
