@@ -1,3 +1,5 @@
+std::array這個container把fixed sized array做一層包裝。
+
 array<T, N> arr; // T為型態，N為長度
 // 常用function
 arr.empty();
