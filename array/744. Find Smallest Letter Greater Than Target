@@ -1,3 +1,4 @@
+//Linear search 
 //Time O(n), Space O(1)
 class Solution {
 public:
@@ -9,5 +10,26 @@ public:
             }
         }
         return letters[0];
+    }
+};
+
+//Binary search 
+//Time O(log(n)), Space O(1)
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        int l=0;
+        int r=letters.size();
+        while (l<r){
+            const int m = (l+r)/2;
+            if (letters[m]<=target)
+                l = m+1;
+            else
+                r = m;//if l = r, then next round break while loop and return m
+        }
+        
+        return letters[l%letters.size()];
+        //if l = letters.size() means there's no target in it, then return 0
+        //if l exist, then return l%letter.size() = l
     }
 };
