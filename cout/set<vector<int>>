@@ -10,6 +10,16 @@ public:
         v[2] = 2;
         s.insert(v);
         s.insert({3, 4, 5});
+
+        //solution#1
+        for (const vector<int>& i : s){
+		    for (int n : i){
+			    cout<<n<<" ";
+		    }
+		    cout<<endl;
+	    }
+
+        //solution#2
         set< vector<int> >::iterator it;
         for(it = s.begin(); it != s.end(); it++){
             const vector<int>& i = (*it);// here get the vector
@@ -17,22 +27,6 @@ public:
                 cout<<n<<" ";// output first vector.
             cout<<endl;
         }
-        
         return false;
-
-    }    
-    
+    }      
 };
-
-
-set<int>s;
-        s.insert(77);
-        s.insert(13);
-        s.insert(44);
-        set<int>::iterator it;
-        for (auto it=s.begin();it != s.end();it++)
-            cout<<*it<<" ";
-        cout<<endl;
-        it = s.begin();
-        cout<<*s.begin()<<" "<<*s.end()<<endl;
-        cout<<*it<<*s.begin()<<endl;
