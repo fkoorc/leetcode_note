@@ -1,0 +1,36 @@
+//two pointer O(n^2logn) O(n)
+//sort nlogn, loop n^2, overall nlogn+n^2 => n^2logn
+//i, left = i+1, right = n-1
+//if i+l+r < target , l+1, else r-1
+//if i+l+r = target, ans.insert({nums[i], nums[j], nums[k]})
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        const int n = nums.size();
+        sort(nums.begin(), nums.end());
+        vector<vector<int>>ans;
+        set<vector<int>>s;
+        int target = 0;
+        for (int i=0; i<n; i++){
+            if (i>0 && nums[i] == nums[i-1]) continue;//i must >=0 and nums [i] check firstone
+            //nums[i-1] will overflow
+            //if(i) = if(i>0)
+            int j = i+1, k = n-1;
+            while(j<k){
+                int sum = nums[i]+nums[j]+nums[k];
+                if(sum == target){
+                    s.insert({nums[i], nums[j], nums[k]});
+                    k--;
+                    j++;
+                }else if(sum<target){
+                    j++;
+                }else if(sum>target){
+                    k--;
+                }
+            }
+        }
+        for (auto it:s)
+            ans.push_back(it);
+        return ans;
+    }
+};
