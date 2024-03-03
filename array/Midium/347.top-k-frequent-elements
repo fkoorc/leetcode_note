@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int>mp;
+        for (int num:nums){
+            mp[num] += 1;
+        }
+        vector<vector<int>>buckets(nums.size()+1);
+        for (const auto &entry : mp){
+            buckets[entry.second].push_back(entry.first);
+            //bucket[3] = [1, 2]->[1, 1, 1, 2, 2, 2]
+            //cout<<it->first<<it->second<<"##";
+        }
+        vector<int> ans;
+        for (int i = nums.size(); i>=0 && ans.size()<k; i--){
+            if ( !buckets[i].empty() ){//bucket is not empty
+                ans.insert(ans.end(), buckets[i].begin(), buckets[i].end());
+            }
+        }
+        return ans;
+    }
+};
