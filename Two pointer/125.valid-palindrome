@@ -1,0 +1,23 @@
+//O(n) O(1)
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        //two pointer
+        //for (auto n:s)putchar(tolower(n));
+        int l=0, r = s.size()-1;
+        while(l<r){
+            while(!isalnum(s[l]) && l<r){ // when s[l] is " "
+                l++;
+            }
+            while(!isalnum(s[r]) && l<r){// when s[r] is " "
+                r--;
+            }
+            if (tolower(s[l]) != tolower(s[r])){
+                return false;
+            } 
+            l++;
+            r--;
+        }  
+        return true;
+    }
+};
