@@ -1,0 +1,23 @@
+set
+
+C++ set 初始化用法如下，
+
+std::set<int> myset{1, 2, 3, 4, 5};
+從 c-style 陣列來初始化
+
+int arr[] = {1, 2, 3, 4, 5};
+std::set<int> myset(arr, arr+5);
+
+std::set<int> myset;
+myset.insert(1);
+
+遍歷
+for (const auto &s : myset) {
+        std::cout << s << " ";
+    }
+
+for (std::set<int>::iterator it = myset.begin(); it != myset.end(); it++) {
+// or
+// for (auto it = myset.begin(); it != myset.end(); it++) {
+    std::cout << *it << " ";
+}
