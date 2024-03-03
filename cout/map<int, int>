@@ -1,0 +1,4 @@
+map output
+
+for (const auto &[k, v] : myMap)
+    std::cout << "m[" << k << "] = (" << v.first << ", " << v.second << ") " << std::endl;
