@@ -1,0 +1,17 @@
+//O(nlog(n)), O(n)
+class Solution {
+public:
+    vector<int> anagramMappings(vector<int>& nums1, vector<int>& nums2) {
+        map<int, int>index_map;
+        const int n = nums1.size();
+        for (int i =0; i<n; i++)
+            index_map[nums2[i]] = i;
+        //for (const auto& ele : index_map)
+        //    cout<<ele.first<<" "<<ele.second<<endl;
+        vector<int>ans;
+        int i = 0;
+        for (const auto& n1:nums1)
+            ans.push_back( index_map[n1] );
+        return ans; 
+    }
+};
