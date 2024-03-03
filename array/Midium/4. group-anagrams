@@ -1,5 +1,19 @@
 class Solution {
 public:
+    static string getKey(string str){//()const string& str)
+        vector<int> count(26);
+        for (int j = 0; j < str.size(); j++){
+            count[str[j] - 'a']++;
+        }
+        //for(auto c:count) 
+        //    cout<<"count:"<<c<<endl; // 26 buckets
+        string key = "";
+        for (int i = 0; i<count.size(); i++){
+            key.append(to_string(count[i])+'#');
+        }
+        return key;//ex: 1#0#0#0#1#0#0#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#0#
+
+    }
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
         unordered_map<string, vector<string>>mp;
         for (int i = 0; i<strs.size(); i++){
@@ -19,19 +33,6 @@ public:
         }
         return result;
     }
-private:
-    string getKey(string str){
-        vector<int> count(26);
-        for (int j = 0; j < str.size(); j++){
-            count[str[j] - 'a']++;
-        }
-        //for(auto c:count) 
-        //    cout<<"count:"<<c<<endl; // 26 buckets
-        string key = "";
-        for (int i = 0; i<count.size(); i++){
-            key.append(to_string(count[i])+'#');
-        }
-        return key;//ex: 1#0#0#0#1#0#0#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#0#
 
-    }
+    
 };
