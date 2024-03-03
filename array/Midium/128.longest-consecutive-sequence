@@ -1,0 +1,20 @@
+//O(n), O(n)
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set<int>s(nums.begin(), nums.end());//just add the element it needed
+        int longest = 0;
+        for(auto &n:s){
+            // check first or not
+            if(s.find(n-1) == s.end()){ //check s[n-1] is not exist, 
+                                        //or use !s.count(n-1) instead, both O(1)
+                int length = 1;
+                while(s.find(n+length) != s.end()){
+                    ++length;
+                }
+                longest = max(longest, length);
+            }
+        }
+        return longest;
+    }
+};
