@@ -1,0 +1,22 @@
+//Time O(n)
+//Space O(26)-> O(1)
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        vector<int>count(26, 0);
+        int l = 0, r = 0;
+        int maxf=0;
+        int ans=0;
+        while(r<s.size()){
+            count[s[r]-'A']++;
+            maxf = max(maxf, count[s[r]-'A']);
+            if (r-l+1 - maxf > k){ //when k is not enough
+                count[s[l]-'A']--;
+                l++;
+            }
+            ans = max(ans, r-l+1);
+            r++;
+        }
+        return ans;
+    }
+};
