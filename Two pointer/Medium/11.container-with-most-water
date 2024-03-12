@@ -1,0 +1,19 @@
+//Time: O(n)
+//Space: O(1)
+class Solution {
+public:
+    int maxArea(vector<int>& h) {
+        int l=0, r=h.size()-1;
+        int ans = 0;
+        while(l<r){
+            if (h[l]<h[r]){
+                ans = max(ans, h[l]*(r-l));
+                l++;
+            }else{
+                ans = max(ans, h[r]*(r-l));
+                r--;
+            }
+        }
+        return ans;
+    }
+};
