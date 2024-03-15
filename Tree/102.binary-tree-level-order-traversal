@@ -1,0 +1,33 @@
+//Time: O(n)
+//Space: O(n)
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        //save every level q
+        vector<vector<int>>res;
+        if (root == NULL)return res;//NULL is not vector<vector<int>> type
+        queue<TreeNode*>q;
+        q.push(root);//put root in the tail of q
+
+        while(!q.empty()){
+            vector<int>cur;
+            int n = q.size();//must, because q.size() will change in every loop
+            for (int i=0; i<n; i++){
+                TreeNode *node = q.front();
+                q.pop();//queue pop will remove the front value of q
+
+                cur.push_back(node->val);
+
+                if (node->left!=NULL){
+                    q.push(node->left);
+                }
+                if (node->right!=NULL){
+                    q.push(node->right);
+                }
+            }
+            res.push_back(cur);
+        }
+        return res;
+        
+    }
+};
