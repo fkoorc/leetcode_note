@@ -1,0 +1,32 @@
+//Time:O(n)
+//Space:O(1)
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+
+        int count = 0;
+        ListNode *curr = head;
+        while(curr!=NULL){
+            count++;
+            curr = curr->next;
+        }
+        cout<<count<<endl;
+
+        ListNode *prev;
+        int prev_c = count-n;
+        //special case: if the first node to be removed
+        if (prev_c == 0) return head->next;
+
+        //reset curr node to head
+        curr = head;
+        for (int i = 0; i<prev_c; i++){
+            prev = curr;
+            curr = curr->next;
+        }
+        //update prev.next = prev.next.next
+        prev->next = curr->next;
+
+
+    return head;   
+    }
+};
