@@ -1,0 +1,18 @@
+//Time: O(n)
+//Space: O(n)
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        //Use BST property: if curr > left & right go left, else if < go right, else done
+        while(root!=NULL){
+            if(p->val < root->val &&q->val < root->val){
+                root = root->left;
+            }else if(p->val > root->val &&q->val > root->val){
+                root = root->right;
+            }else{// in this condition, neither p = root or q = root, so the root is res
+                return root;
+            }
+        }
+        return NULL;// if no answer exist   
+    }
+};
