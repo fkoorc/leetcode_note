@@ -1,0 +1,16 @@
+//Time: O(n)
+//Space: O(1)
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int cur = nums[0];
+        int res = nums[0];
+
+        for(int i=1; i<nums.size(); i++){
+            //if nums[i]>the sum of all previous nums, then start over with nums[i]
+            cur = max(cur+nums[i], nums[i]);
+            res = max(res, cur);
+        }
+        return res;
+    }
+};
