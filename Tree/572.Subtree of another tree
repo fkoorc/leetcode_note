@@ -1,0 +1,22 @@
+//Time: O(m*n), m is root node number, n is subroot number
+//Space: O(max(h1, h2)), h1 is root height, h2 is subroot height
+class Solution {
+public:
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if (root == NULL)return false;
+        if (subRoot == NULL)return true;
+        if (isSameTree(root, subRoot)) return true;
+
+        return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+        
+    }
+private:
+    bool isSameTree(TreeNode *Tree, TreeNode *subTree){
+        if (Tree == NULL and subTree == NULL) return true;
+        if (Tree != NULL and subTree != NULL and Tree->val == subTree->val)
+            return isSameTree(Tree->left, subTree->left) and isSameTree(Tree->right, subTree->right);
+        else
+            return false;
+    }
+
+};
