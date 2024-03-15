@@ -1,0 +1,15 @@
+//Time: O(n), n is the numbers of tree nodes
+//Space: O(h), h is the hight of tree, worst case each node has one child only, h = n, best case its balanced tree, h = log(n)
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        //preorder traversal each node
+        if (root == NULL) return NULL;
+        swap(root->left, root->right);
+        invertTree(root->left);
+        invertTree(root->right);
+        
+        return root;
+        
+    }
+};
