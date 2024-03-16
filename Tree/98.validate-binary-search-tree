@@ -1,0 +1,24 @@
+//Time: O(N) visit each node once.
+//Space: O(N) store the entire tree.
+class Solution {
+public:
+    bool BST(TreeNode *root, TreeNode *low, TreeNode *high){
+        //check left<root, root>right, empty tree are valid BST
+        //recursive
+        if(root == NULL)return true;
+
+        //the cur node must between low node and high node
+        if ( (low!=NULL and root->val <= low->val) or
+             (high!=NULL and root->val >= high->val)){
+            return false;
+        }
+
+        //the left/right subtree must also valid
+        return BST(root->left, low, root) and BST(root->right, root, high);
+    }
+
+    bool isValidBST(TreeNode* root) {
+        return BST(root, NULL, NULL);
+        
+    }
+};
