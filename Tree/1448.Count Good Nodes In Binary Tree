@@ -1,0 +1,20 @@
+//Time: O(n)
+//Space: O(n)
+class Solution {
+private:
+    void dfs(TreeNode* root, int cur_max, int &res){//check why &
+        if (root == NULL)return ;
+        if (root->val >= cur_max){
+            res++;//find another good node
+        }
+        dfs(root->left, max(root->val, cur_max), res);
+        dfs(root->right, max(root->val, cur_max), res);
+    }
+
+public:
+    int goodNodes(TreeNode* root) {
+        int res = 0;
+        dfs(root, root->val, res);
+        return res;    
+    }
+};
