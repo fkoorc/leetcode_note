@@ -3,17 +3,15 @@
 class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
-        if (root == NULL) return {}};
+        if (root == NULL) return {};
         queue<TreeNode*> q;
         q.push(root);
 
         vector<int>res;
-
         while(!q.empty()){
-            //vector<int> cur;
             int n = q.size();
 
-            for(int i=0; i<n; i++){//brilliant thinking
+            for(int i=0; i<n; i++){
                 TreeNode* node = q.front();
                 q.pop();
 
@@ -21,12 +19,8 @@ public:
                     res.push_back(node->val);
                 }
 
-                if (node->left != NULL){
-                    q.push(node->left);
-                }
-                if (node->right != NULL){
-                    q.push(node->right);
-                }
+                if (node->left != NULL)q.push(node->left);
+                if (node->right != NULL)q.push(node->right); 
             }
         }
         return res;
