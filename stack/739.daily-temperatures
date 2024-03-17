@@ -1,0 +1,29 @@
+//Time: O(n)
+//Space: O(n)
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& t) {
+        //monotonic stack
+        int index = 0;
+        int n = t.size();
+        //pair[index, temp]
+        stack<pair<int, int>>stk;
+        vector<int> res(n);
+        for (int i=0; i<n; i++){
+            //i = cur_day, t[i] = cur_temp
+            while (!stk.empty() && stk.top().second < t[i]){
+                int pre_day = stk.top().first;
+                int pre_temp = stk.top().second;
+                stk.pop();
+
+                res[pre_day] = i-pre_day;
+            }
+            stk.push({i, t[i]});
+
+
+        }
+        return res;
+
+        
+    }
+};
