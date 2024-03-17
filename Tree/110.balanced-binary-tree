@@ -1,0 +1,22 @@
+//Time: O(n)
+//Space: O(n)
+class Solution {
+private:
+    bool dfs(TreeNode* node, int &res){
+        if (node == NULL){
+            res = -1;
+            return true;
+        }
+        int left = 0, right = 0;
+        if (!dfs(node->left, left) || !dfs(node->right, right))return false;
+        if (abs(left - right)>1) return false;
+        res = 1+max(left, right);
+        return true;
+    }
+public:
+    bool isBalanced(TreeNode* root) {
+        //dfs, count every node left/right high, if abs(left-right)>1, false
+        int res = 0;
+        return dfs(root, res);
+    }
+};
