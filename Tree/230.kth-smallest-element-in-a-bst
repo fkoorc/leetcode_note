@@ -1,0 +1,24 @@
+//Time: O(n)
+//Space: O(n)
+class Solution {
+private:
+    void inorder(TreeNode *node, int &k, int &result){
+        if (node == NULL){
+            return;//void not return any value
+        }
+        inorder(node->left, k, result);
+        k--;
+        if (k==0){
+            result = node->val;
+            return;
+        }
+        inorder(node->right, k, result);
+    }
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        //inorder traversal
+        int result = 0; //0<=node.val<=10^4
+        inorder(root, k, result);
+        return result;   
+    }
+};
