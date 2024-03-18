@@ -1,0 +1,95 @@
+//Time: O(1)
+//Space: O(capacity)
+class Node{
+public:
+    int k;
+    int val;
+    Node* prev;
+    Node* next;
+    Node(int key, int value){
+        k = key;
+        val = value;
+        prev = NULL;
+        next = NULL;
+    }
+};
+
+class LRUCache {
+public:
+    LRUCache(int capacity) {
+        //double listed-list
+        //unordered_map<Node*, int>cache = {};
+        // Initialize the capacity
+        cap = capacity;
+        // Clear the cache map
+        cache.clear();
+        // Create dummy head and tail nodes for the linked list
+        left = new Node(0, 0);
+        right = new Node(0, 0);
+        // Connect the dummy nodes
+        left->next = right;
+        right->prev = left;        
+    }
+    
+    int get(int key) {
+        // If the key exists, move the corresponding node to the front
+        if (cache.find(key) != cache.end()){
+            remove(cache[key]);
+            insert(cache[key]);
+            return cache[key]->val;
+        }
+        return -1; //if not exist
+    }
+    
+    void put(int key, int value) {
+        // If key exists, remove it from the cache and delete the node
+        if (cache.find(key) != cache.end()){
+            Node *node = cache[key];
+            remove(node);
+            cache.erase(key); 
+            delete(node);//free allocated memory for removed node 
+        }
+        
+        if (cache.size()>=cap){
+            // If capacity reached, remove the least recently used node
+            Node* LRU = left->next;
+            remove(LRU);
+            cache.erase(LRU->k);
+            delete (LRU);
+
+        }
+        // Create a new node and insert it at the front
+        Node* new_node = new Node(key, value);
+        cache[key] = new_node;
+        insert(new_node);
+      
+    }
+private:
+    unordered_map<int, Node*>cache;
+    Node* left;
+    Node* right;
+    int cap;
+    void remove(Node* node){
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
+
+    void insert(Node* node){
+        //build 4 connect line
+        // Insert the given node at the front of the linked list
+        node->next = right;
+        node->prev = right->prev;
+        right->prev->next = node;
+        right->prev = node;
+
+    }
+};
+
+
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
