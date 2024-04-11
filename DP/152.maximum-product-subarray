@@ -1,0 +1,20 @@
+//Time: O(n)
+//Space: O(1)
+//1-DP
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int ans = nums[0];
+        int maxproduct = 1, minproduct = 1;
+        for (int i=0; i<nums.size(); i++){
+            int n = nums[i];
+            int tmp = maxproduct;
+            maxproduct = max(max(maxproduct*n, minproduct*n), n);
+            minproduct = min(min(tmp*n, minproduct*n), n);
+            ans = max(ans, maxproduct);
+
+        }
+        return ans;
+        
+    }
+};
