@@ -1,0 +1,25 @@
+//Time: O(n)
+//Space: O(1)
+//two pointer
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        int left = 0, right = n-1;
+        int left_maxh = height[0], right_maxh = height[n-1];
+        int ans = 0;
+
+        while (left<right){
+            if (left_maxh<=right_maxh){
+                left++;
+                left_maxh = max(left_maxh, height[left]);
+                ans += left_maxh - height[left];   
+            }else{
+                right--;
+                right_maxh = max(right_maxh, height[right]);
+                ans += right_maxh - height[right];
+            }
+        }
+        return ans;  
+    }
+};
