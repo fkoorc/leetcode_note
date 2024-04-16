@@ -1,0 +1,26 @@
+ //Time:O(n)
+ //Space:O(nlogn) each item len = logn, max n/2 set of items, so res len = nlogn
+ 
+//###Recursive#############################################################################
+class Solution {
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        vector<vector<int>>res;
+        vector<int>item;
+        dfs(root, targetSum, item, res);
+        return res;       
+    }
+private:
+    void dfs(TreeNode* root, int targetSum, vector<int>& item, vector<vector<int>>& res ){
+        if (!root)return;
+        item.push_back(root->val);
+        targetSum -= root->val;
+        if (!root->left && !root->right && targetSum == 0){
+            res.push_back(item);
+        }
+
+        dfs(root->left, targetSum, item, res);
+        dfs(root->right, targetSum, item, res);
+        item.pop_back();
+    }
+};
