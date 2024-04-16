@@ -1,7 +1,7 @@
- //recursive
- //Time: O(N) n = number fo node
- //Space: O(N) worst case/each node has one child only
- //       O(logN) in best case/ complete balanced tree  
+//###recursive############################################
+//Time: O(N) n = number fo node
+//Space: O(N) worst case/each node has one child only
+//       O(logN) in best case/ complete balanced tree  
 class Solution {
 public:
     bool hasPathSum(TreeNode* root, int targetSum) {
@@ -10,5 +10,37 @@ public:
         if (!root->left && !root->right && targetSum == 0) return true;
 
         return (hasPathSum(root->left, targetSum) || hasPathSum(root->right, targetSum));
+    }
+};
+
+
+
+
+//###iterate##############################################
+//Time: O(N) n = number fo node
+//Space: O(N) worst case/each node has one child only
+//       O(logN) in best case/ complete balanced tree  
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if (root==NULL) return false;
+        stack<pair<TreeNode*, int>>s;
+        s.push({root, root->val});
+        
+        while(!s.empty()){
+            auto current = s.top();
+            s.pop();
+            TreeNode* node = current.first;
+            int currentSum = current.second;
+            
+            if(!node->left && !node->right && currentSum == targetSum){
+                return true;
+            }
+            if(node->left)
+                s.push({node->left, currentSum + node->left->val});
+            if(node->right)
+                s.push({node->right, currentSum + node->right->val});
+        }
+        return false;
     }
 };
