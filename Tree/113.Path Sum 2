@@ -24,3 +24,51 @@ private:
         item.pop_back();
     }
 };
+
+//###iterative#############################################################################
+class Solution {
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        vector<vector<int>>res;//now res = []
+        stack<pair<TreeNode*, vector<int>>>s;
+        stack<int>cur;
+        if (!root) return res;
+
+        s.push({root, {root->val}});
+        cur.push(targetSum - root->val);
+        
+        while(!s.empty()){
+            auto current = s.top();
+            s.pop();
+            auto curSum = cur.top();
+            cur.pop();
+
+            TreeNode* node = current.first;
+            vector<int>item = current.second;
+            /*for (const auto& i:item){
+                cout<<i<<" ";
+            }
+            cout<<"curSum"<<curSum<<endl;*/
+
+            if(!node->left && !node->right && curSum == 0){
+                res.push_back(item);
+            }
+
+            vector<int>leftitem = item;
+            vector<int>rightitem = item;
+
+            if(node->left){
+                leftitem.push_back(node->left->val);
+                s.push({node->left, leftitem});
+                cur.push(curSum - node->left->val);
+            }
+            if(node->right){
+                rightitem.push_back(node->right->val);
+                s.push({node->right, rightitem});
+                cur.push(curSum - node->right->val);
+            }
+        }
+        return res;
+    }
+};
+
