@@ -1,0 +1,14 @@
+ //recursive
+ //Time: O(N) n = number fo node
+ //Space: O(N) worst case/each node has one child only
+ //       O(logN) in best case/ complete balanced tree  
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if (!root) return false;
+        targetSum -= root->val;
+        if (!root->left && !root->right && targetSum == 0) return true;
+
+        return (hasPathSum(root->left, targetSum) || hasPathSum(root->right, targetSum));
+    }
+};
