@@ -1,0 +1,27 @@
+//Time:O(n)
+//Space:O(n)
+//###Recursive###########################################################################
+class Solution {
+public:
+    int sumNumbers(TreeNode* root) {
+        int res = 0;
+        dfs(root, 0, res);
+        return res;
+    }
+private:
+    void dfs(TreeNode* node, int sum, int& res){// 'int& sum' will keep change sum value
+        if (!node) return;
+
+        sum = sum*10 + node->val; 
+
+        if (!node->left && !node->right){
+            res += sum;
+        }
+        dfs(node->left, sum, res);
+        dfs(node->right, sum, res);
+
+    }
+};
+
+//###iterative###########################################################################
+
