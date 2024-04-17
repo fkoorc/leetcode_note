@@ -1,0 +1,23 @@
+//Time:O(n*n)
+//Space:O(n*n)
+class Solution {    
+public:
+    string smallest  = "zzzzzzzzzzzzzzzzzzzzzzzz";//26?
+    void dfs(TreeNode* node, string current){
+        if (!node)return;
+        current = char('a'+node->val) + current; 
+
+        if (!node->left && !node->right) {
+            if(smallest > current){
+                smallest = current;
+            }
+        }
+        if(node->left) dfs(node->left, current);
+        if(node->right) dfs(node->right, current); 
+    }
+
+    string smallestFromLeaf(TreeNode* root) {
+        dfs(root, "");
+        return smallest;
+    }
+};
