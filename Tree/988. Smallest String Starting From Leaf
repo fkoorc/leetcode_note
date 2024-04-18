@@ -1,5 +1,6 @@
 //Time:O(n*n)
 //Space:O(n*n)
+###DFS Recursive############################################################
 class Solution {    
 public:
     string smallest  = "zzzzzzzzzzzzzzzzzzzzzzzz";//26?
@@ -21,3 +22,35 @@ public:
         return smallest;
     }
 };
+
+###BFS iterative#########################################################
+class Solution {    
+public:
+    string smallestFromLeaf(TreeNode* root) {
+        if (!root)return "";
+        string smallest  = "}";
+        //queue for BFS
+        queue<pair<TreeNode*, string>>q;
+        q.push({root, ""});
+
+        while(!q.empty()){
+            //auto [node, current] = q.front();?
+            TreeNode* node = q.front().first;
+            string current = q.front().second;
+            q.pop();
+
+            current = char('a'+node->val)+current;
+
+            //if lead node, update smallest;
+            if (!node->left && !node->right && smallest>current){
+                smallest = current;
+            }
+
+            if (node->left) q.push({node->left, current});
+            if (node->right) q.push({node->right, current});
+        }
+        return smallest;
+    }
+};
+
+###########################################################################
