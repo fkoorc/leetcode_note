@@ -35,19 +35,23 @@ public:
 
         while(!q.empty()){
             //auto [node, current] = q.front();?
-            TreeNode* node = q.front().first;
-            string current = q.front().second;
-            q.pop();
+            int n = q.size();
+            
+            for (int i=0; i<n; i++){ //this for loop can be removed, since the problem dont consider each level
+                TreeNode* node = q.front().first;
+                string current = q.front().second;
+                q.pop();
+                
+                current = char('a'+node->val)+current;
+                
+                //if lead node, update smallest;
+                if (!node->left && !node->right && smallest>current){
+                    smallest = current;
+                }
 
-            current = char('a'+node->val)+current;
-
-            //if lead node, update smallest;
-            if (!node->left && !node->right && smallest>current){
-                smallest = current;
+                if (node->left) q.push({node->left, current});
+                if (node->right) q.push({node->right, current});
             }
-
-            if (node->left) q.push({node->left, current});
-            if (node->right) q.push({node->right, current});
         }
         return smallest;
     }
