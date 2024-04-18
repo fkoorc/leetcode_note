@@ -1,0 +1,24 @@
+//Time:O(2^N)
+//The recursive function dfs is called 2^N times
+//Space:O(2^N*N)
+//The space complexity is dominated by the storage of all 2^N subsets generated.
+//Each subset can have at most N elements.
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>>res;
+        vector<int>cur;
+        dfs(nums, 0, cur, res);
+        return res;
+    }
+    void dfs(vector<int>&nums, int start, vector<int>& cur, vector<vector<int>>& res){
+        //every subset, include []
+        res.push_back(cur);
+        for (int i=start; i<nums.size(); i++){
+            cur.push_back(nums[i]);
+            dfs(nums, i+1, cur, res);
+            cur.pop_back();
+        }
+
+    }
+};
