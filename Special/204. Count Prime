@@ -1,0 +1,25 @@
+//Time:O(nlog(log(n)))
+//Space:O(n)
+class Solution {
+public:
+    int countPrimes(int n) {
+        int res = 0;
+        sieve(n, res);// res?
+        return res;
+    }
+    void sieve(int n, int& res){
+        vector<bool> prime(n+1, true) ;//0...n, 2...n actually
+
+        for (int i=2; i*i<=n; i++){
+            if (prime[i] == true){
+                for (int j = i*i; j<=n; j+=i){
+                    prime[j] = false;
+                }
+            }
+        }
+        for (int p=2; p<n; p++){
+            if(prime[p] == true)
+                res++;
+        }
+    }
+};
