@@ -1,3 +1,5 @@
+//Time:O(m*n)
+//Space:O(m*n)
 class Solution {
 public:
     vector<vector<int>> findFarmland(vector<vector<int>>& land) {
@@ -5,27 +7,25 @@ public:
         for (int i=0; i<land.size(); i++){
             for (int j=0; j<land[0].size(); j++){
                 if (land[i][j] == 1){
-                    int min_row=i, min_col=j, max_row=i, max_col=j;
-                    dfs(land, i, j, min_row, min_col, max_row, max_col);
-                    res.push_back({min_row, min_col, max_row, max_col});
+                    int max_row=i, max_col=j;
+                    dfs(land, i, j, max_row, max_col);
+                    res.push_back({i, j, max_row, max_col});
                 }
             }
         }
         return res;
     }
-    void dfs(vector<vector<int>>& land, int i, int j, int& min_row, int& min_col, int& max_row, int& max_col){
-        if (i<0 || j<0 || i>=land.size() || j>=land[0].size() || land[i][j] == 0){
+    void dfs(vector<vector<int>>& land, int row, int col, int& max_row, int& max_col){
+        if (row<0 || col<0 || row>=land.size() || col>=land[0].size() || land[row][col] == 0){
             return;
         }
-        land[i][j] = 0;
-        if (i<min_row) min_row = i;
-        if (j<min_col) min_col = j;
-        if (i>max_row) max_row = i;
-        if (j>max_col) max_col = j;
+        land[row][col] = 0;
+        max_row = max(max_row, row);
+        max_col = max(max_col, col);
 
-        dfs(land, i+0, j+1, min_row, min_col, max_row, max_col);
-        dfs(land, i+0, j-1, min_row, min_col, max_row, max_col);
-        dfs(land, i+1, j+0, min_row, min_col, max_row, max_col);
-        dfs(land, i-1, j+0, min_row, min_col, max_row, max_col);
+        dfs(land, row+0, col+1, max_row, max_col);
+        dfs(land, row+0, col-1, max_row, max_col);
+        dfs(land, row+1, col+0, max_row, max_col);
+        dfs(land, row-1, col+0, max_row, max_col);
     }
 };
