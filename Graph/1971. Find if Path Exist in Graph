@@ -65,4 +65,41 @@ public:
         return false;    
     }
 };
+
+###iterative(BFS)###################################################################
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        if (source == destination) return true;
+        // Create an adjacency list
+        unordered_map<int, vector<int>>graph;
+        for (const auto& edge:edges){
+            int u = edge[0];
+            int v = edge[1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+
+        unordered_set<int>visit;
+        queue<int>q;
+
+        //start from the source
+        q.push(source);
+        visit.insert(source);
+
+        //Iterative DFS
+        while (!q.empty()){
+            int node = q.front();
+            q.pop();
+            if (node == destination) return true;
+            for (int nei :graph[node]){
+                if (visit.find(nei) == visit.end()){
+                    visit.insert(nei);
+                    q.push(nei);
+                }
+            }
+        }
+        return false;    
+    }
+};
 #################################################################################
