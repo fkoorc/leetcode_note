@@ -139,3 +139,26 @@ public:
         return g.connected(source, destination);    
     }
 };
+###UnionFind(cheat ver)################################################################
+class Solution {
+public:
+    int find(vector<int>&root, int x){
+        while(x!=root[x]){
+            x = root[x];
+        }
+        return x;
+    }
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        vector<int>root(n);
+        iota(root.begin(), root.end(), 0);
+        for (const auto& edge : edges){
+            int u = edge[0], v = edge[1];
+            int root_u = find(root, u);
+            int root_v = find(root, v);
+            if (u!=v){
+                root[root_u] = root_v;
+            }
+        }
+        return find(root, source) == find(root, destination);
+    }
+};
