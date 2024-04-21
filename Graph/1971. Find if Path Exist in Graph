@@ -1,0 +1,68 @@
+//Time: O(V+E) V = graph.size(), E = edge.size()
+//Space: O(V+E)
+###Recursive(DFS)#################################################################################
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        unordered_map<int, vector<int>>graph;
+        unordered_set<int>visit;
+        for (const auto& edge:edges){
+            int u = edge[0];
+            int v = edge[1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        return dfs(graph, visit, source, destination);
+    }
+    bool dfs(unordered_map<int, vector<int>>&graph, unordered_set<int>&visit, int node, int des ){
+        if (node == des) return true;
+        visit.insert(node);
+        for (int nei:graph[node]){
+            if (visit.find(nei) == visit.end()){
+                if (dfs(graph, visit, nei, des)){;//if not checking, the code will ignore the resr nei, and keep going.
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};
+
+###iterative(DFS)#################################################################################
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        if (source == destination) return true;
+        // Create an adjacency list
+        unordered_map<int, vector<int>>graph;
+        for (const auto& edge:edges){
+            int u = edge[0];
+            int v = edge[1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        unordered_set<int>visit;
+        stack<int>s;
+
+        //start from the source
+        s.push(source);
+        visit.insert(source);
+
+        //Iterative DFS
+        while (!s.empty()){
+            int node = s.top();
+            s.pop();
+
+            if (node == destination) return true;
+
+            for (int nei :graph[node]){
+                if (visit.find(nei) == visit.end()){
+                    visit.insert(nei);
+                    s.push(nei);
+                }
+            }
+        }
+        return false;    
+    }
+};
+#################################################################################
