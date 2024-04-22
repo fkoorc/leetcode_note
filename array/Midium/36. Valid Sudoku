@@ -1,0 +1,28 @@
+//Time: O(N*N)
+//Space: O(N*N)
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        vector<unordered_set<char>>row(9);
+        vector<unordered_set<char>>col(9);
+        vector<unordered_set<char>>slp(9);
+        for (int i=0; i<9; i++){
+            for (int j=0; j<9; j++){
+                char cur = board[i][j];
+                if (board[i][j] == '.') continue;
+
+                // Determine the subgrid i/3 => 0,1,2 => 0,3,6 => +j/3
+                int subgrid = (i / 3) * 3 + (j / 3);
+                //cout<<i<<"/"<<j<<"/"<<subgrid<<endl;
+
+                if (row[i].count(cur) || col[j].count(cur) || slp[subgrid].count(cur)){
+                    return false;
+                }
+                row[i].insert(board[i][j]);
+                col[j].insert(board[i][j]);
+                slp[subgrid].insert(board[i][j]);
+            }
+        }
+        return true;
+    }
+};
