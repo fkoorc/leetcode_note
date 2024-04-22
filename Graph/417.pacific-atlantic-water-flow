@@ -1,0 +1,64 @@
+//Time: O(m*n)
+//Time: O(m*n)
+class Solution {
+public:
+    //using coordinate = std::pair<int, int>;
+
+    void dfs_p(vector<vector<int>>& heights, int pre, int i, int j, int row, int col, vector<vector<bool>>& visit_p ){
+        if (i<0 || i>=row || j<0 || j>=col || heights[i][j]<pre || visit_p[i][j]){
+            return;
+        }
+        visit_p[i][j] = true;
+        int cur = heights[i][j];
+        dfs_p(heights, cur, i+0, j+1, row, col, visit_p);
+        dfs_p(heights, cur, i+0, j-1, row, col, visit_p);
+        dfs_p(heights, cur, i-1, j+0, row, col, visit_p);
+        dfs_p(heights, cur, i+1, j+0, row, col, visit_p);
+
+    }
+    void dfs_a(vector<vector<int>>& heights, int pre, int i, int j, int row, int col, vector<vector<bool>>& visit_a ){
+        if (i<0 || i>=row || j<0 || j>=col || heights[i][j]<pre || visit_a[i][j]){
+            return;
+        }
+        visit_a[i][j] = true;
+        int cur = heights[i][j];
+        dfs_a(heights, cur, i+0, j+1, row, col, visit_a);
+        dfs_a(heights, cur, i+0, j-1, row, col, visit_a);
+        dfs_a(heights, cur, i-1, j+0, row, col, visit_a);
+        dfs_a(heights, cur, i+1, j+0, row, col, visit_a);
+
+    }
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        if (heights.empty())return {};
+
+        int row = heights.size();
+        int col = heights[0].size();
+        
+        vector<vector<bool>> visit_p(row, vector<bool>(col, false));
+        vector<vector<bool>> visit_a(row, vector<bool>(col, false));
+        vector<vector<int>>res;// [[r, c]...]
+
+        //count top side/ left side, all pass node visit_p = true
+        for (int i=0; i<row; i++){
+            dfs_p(heights, 0, i, 0, row, col, visit_p);// left side
+            dfs_a(heights, 0, i, col-1, row, col, visit_a);// right side
+        }
+        //count bottom side/ right side, all pass node visit_a = true
+        for (int j=0; j<col; j++){
+            dfs_p(heights, 0, 0, j, row, col, visit_p);// top side
+            dfs_a(heights, 0, row-1, j, row, col, visit_a);// bottom side
+        }
+
+
+        //if visit_p && visit_a, res.push_back(i, j)
+        for (int i=0; i<row; i++){
+            for (int j=0; j<col; j++){
+                if (visit_p[i][j] && visit_a[i][j]){
+                    res.push_back({i, j});
+                }
+            }
+        }
+        return res;
+ 
+    }
+};
