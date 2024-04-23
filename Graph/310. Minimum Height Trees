@@ -44,3 +44,50 @@ public:
         return res;
     }
 };
+
+### change to edgecount store each node's edge #########################################################
+class Solution {
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+        if (n == 1) return {0}; // no edge case
+        //edge graph
+        unordered_map<int, vector<int>>graph;
+        vector<int> edgescount(n, 0);
+        for (const auto& edge: edges){
+            int u = edge[0], v = edge[1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+            edgescount[u]++;
+            edgescount[v]++;
+        }
+
+        //find all leaf
+        queue<int> leaf;
+        for (int i=0; i<n; i++){
+            if (graph[i].size() == 1) leaf.push(i);
+        }
+        
+        //BFS, node-= every leaf until queue left root(1 or 2 root)
+        int nodes = n;
+        while(!leaf.empty() && nodes>2){
+            int countleaf = leaf.size();
+            nodes -= countleaf;
+            for (int i=0; i<countleaf; i++){
+                int l = leaf.front();
+                leaf.pop();
+                for (auto& nei: graph[l]){
+                    edgescount[nei]--;
+                    if (edgescount[nei] == 1){ //nei turn to new leaf
+                        leaf.push(nei);
+                    }
+                }
+            }
+        }
+        vector<int> res;
+        while(!leaf.empty()){
+            res.push_back(leaf.front());
+            leaf.pop();
+        }
+        return res;
+    }
+};
