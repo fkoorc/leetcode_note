@@ -1,0 +1,19 @@
+//Time: O(n)
+//Space: O(1)
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int n = digits.size();
+        for (int i=n-1; i>=0; i--){
+            if (digits[i]<9){
+                digits[i]++;
+                return digits;
+            }
+            digits[i] = 0;//carry always = 1
+        }
+        //a little cheating, replace digit[0] to 1, and add 0 at latest place
+        digits[0] = 1;
+        digits.push_back(0);
+        return digits;
+    }
+};
