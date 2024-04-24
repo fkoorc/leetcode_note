@@ -1,0 +1,14 @@
+//Time:O(n)
+//Space:O(1)
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int goal = nums.size()-1;
+        for (int i=nums.size()-1; i>=0; i--){
+            if (i+nums[i]>=goal){// i = the position, nums[i] = jump step
+                goal = i;
+            }
+        }
+        return goal == 0;   
+    }
+};
