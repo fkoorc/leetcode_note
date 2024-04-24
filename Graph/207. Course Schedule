@@ -1,0 +1,39 @@
+//Time: O(V + E)
+//Space: O(V + E)
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        //edge graph
+        unordered_map<int, vector<int>>graph;
+        for (auto& pre: prerequisites) graph[pre[1]].push_back(pre[0]);
+
+        //check every node/course if visit or not
+        unordered_set<int>visit;
+        for (int i=0; i<numCourses; i++){
+            if (!dfs(graph, i, visit)){
+                return false;
+            }
+        }
+        return true;
+    }
+    bool dfs(unordered_map<int, vector<int>>& graph, int node, unordered_set<int>& visit){
+        if (visit.find(node) != visit.end()) return false;
+            
+        if (graph[node].empty()) return true;
+
+        visit.insert(node);
+        //for (int i=0; i<graph[node].size(); i++){
+            //int nei = graph[node][i];
+        for (auto& nei: graph[node]){
+            if (!dfs(graph, nei, visit)){
+                return false;
+            }
+        }
+        // now this node is true/pass
+        // since the node is pass(true), let's empty the node in graph, so next turn we dont have to check again 
+        graph[node].clear();
+        // back tracking
+        visit.erase(node);
+        return true;        
+    }
+};
