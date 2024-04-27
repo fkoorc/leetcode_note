@@ -22,3 +22,29 @@ public:
         
     }
 };
+
+### Recursive DFS inorder traversal ##############################################################
+//Time: O(N) visit each node once.
+//Space: O(N) store the entire tree.
+
+class Solution {
+private:
+    TreeNode* prev = NULL;
+public:
+    
+    bool isValidBST(TreeNode* root) {
+        return inorder(root);
+        
+    }
+    bool inorder(TreeNode* root){
+        //left->root->right
+        if (root == NULL)return true;
+
+        if (!inorder(root->left))return false;
+        if (prev != NULL && root->val <= prev->val) return false;
+        
+        prev = root;
+        return inorder(root->right);
+
+    }
+};
