@@ -32,7 +32,8 @@ public:
         // now this node is true/pass
         // since the node is pass(true), let's empty the node in graph, so next turn we dont have to check again 
         graph[node].clear();
-        // release space, the code pass even we dont use this line
+        // crucial, after each DFS path, not erase visit set may encounter misrecognize the node as visited node,
+        // and code will see it as cycle, which could be wrong.
         visit.erase(node);
         return true;        
     }
