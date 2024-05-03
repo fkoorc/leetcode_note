@@ -32,7 +32,7 @@ public:
         // now this node is true/pass
         // since the node is pass(true), let's empty the node in graph, so next turn we dont have to check again 
         graph[node].clear();
-        // back tracking
+        // release space, the code pass even we dont use this line
         visit.erase(node);
         return true;        
     }
