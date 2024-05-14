@@ -17,25 +17,18 @@ public:
     ListNode* removeNodes(ListNode* head) {
         //reverse
         head = reverse(head);
-        int last_max = head->val;
-
-        ListNode* cur = new ListNode(0); 
-        ListNode* prev = cur;
-
         //iterate reversed link list and save passed max value node
-        while(head){
-            while(head && head->val < last_max){head = head->next;}
-            if (head == NULL){cur->next = NULL; break;}
-            last_max = head->val; //here the last_max must larger than old one
-            cur->next = head; //now head is valid so add in cur link-list
-            cur = cur->next;
-            head = head->next;
+        ListNode* cur = head;
+        int last_max = head->val; 
+        while(cur->next){
+            if (cur->next->val < last_max){
+                cur->next = cur->next->next;
+            }else{
+                last_max = cur->next->val;
+                cur = cur->next;
+            }
         }
-
-
         //reverse back        
-        return reverse(prev->next);//prev->next similar with dummy->next
-        
-    }
-    
+        return reverse(head); 
+    } 
 };
