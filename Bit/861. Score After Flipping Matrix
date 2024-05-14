@@ -1,0 +1,61 @@
+//Time O(m*n)
+//Space O(1)
+### efficiency ###
+class Solution {
+public:
+    int matrixScore(vector<vector<int>>& grid) {
+        int ROW = grid.size(), COL = grid[0].size();
+        
+        int res = 0;
+        for (int c=0; c<COL; c++){
+            int tmp = 0;
+            for (int r=0; r<ROW; r++)
+                tmp += (grid[r][0] == 1)? grid[r][c]:(grid[r][c]+1)%2;
+            tmp = (tmp>(ROW/2))? tmp:ROW-tmp;
+            res +=  tmp *(1<<COL-1-c);
+        }
+        return res;
+
+    }
+};
+
+//Time O(m*n)
+//Space O(m*n)
+### Greedy ###
+class Solution {
+public:
+    int matrixScore(vector<vector<int>>& grid) {
+        int ROW = grid.size(), COL = grid[0].size();
+        
+        // Row flip
+        for (int i = 0; i < ROW; i++) {
+            if (grid[i][0] == 0) {
+                for (int j = 0; j < COL; j++) {
+                    grid[i][j] = (grid[i][j] == 0) ? 1 : 0; 
+                }
+            }
+        }
+        
+        // Column flip
+        for (int c = 1; c < COL; c++) {
+            int tmp = 0;
+            for (int r = 0; r < ROW; r++) {
+                tmp += grid[r][c];
+            }
+            if (tmp < ROW - tmp) {
+                for (int r = 0; r < ROW; r++) {
+                    grid[r][c] = (grid[r][c] == 0) ? 1 : 0; 
+                }
+            }
+        }
+        int res = 0;
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                res += grid[i][j] * (1 << (COL - 1 - j));
+            }
+        }
+        
+        return res;
+ 
+    }
+};
