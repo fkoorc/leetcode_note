@@ -1,0 +1,68 @@
+//Time: O(m*n*4^g) 
+//Space: O(g)
+//m = row, n = col, g = gold cell n
+//backtracking
+class Solution {
+public:
+    const vector<int>dir = {0, 1, 0, -1, 0};
+    int dfs(vector<vector<int>>& grid, int r, int c){
+        int ROW = grid.size(), COL = grid[0].size();
+        if (r<0 || c<0 || r>=ROW || c>= COL || grid[r][c] == 0 )return 0;
+
+        int cur_max = 0;
+        int ori_gold = grid[r][c];
+        grid[r][c] = 0;//visit
+
+        for (int d = 0; d<4; d++){
+            cur_max = max(cur_max, dfs(grid, r + dir[d], c + dir[d+1]));
+        }
+        grid[r][c] = ori_gold;//visit restore
+
+        return cur_max + grid[r][c];
+    }
+    int getMaximumGold(vector<vector<int>>& grid) {
+        int ROW = grid.size(), COL = grid[0].size();
+        int res = 0;
+        for (int r=0; r<ROW; r++){
+            for (int c=0; c<COL; c++){
+                //dfs will check grid == 0
+                res = max(res, dfs(grid, r, c));
+            }
+        }
+        return res;       
+    }
+};
+
+
+### greddy/dfs/visit_set ###
+class Solution {
+public:
+    int dfs(vector<vector<int>>& grid, vector<vector<bool>>& visit, int r, int c){
+        int ROW = grid.size(), COL = grid[0].size();
+        if (r<0 || c<0 || r>=ROW || c>= COL || grid[r][c] == 0 || visit[r][c])return 0;
+        visit[r][c] = true;
+        int gold = grid[r][c];
+        int up = dfs(grid, visit, r-1, c);
+        int down = dfs(grid, visit, r+1, c);
+        int right = dfs(grid, visit, r, c+1);
+        int left = dfs(grid, visit, r, c-1);
+        visit[r][c] = false;
+
+        return gold + max({up, down, right, left});
+        
+    }
+    int getMaximumGold(vector<vector<int>>& grid) {
+        //greedy
+        int ROW = grid.size(), COL = grid[0].size();
+        int res = 0;
+        vector<vector<bool>>visit(ROW, vector<bool>(COL, false));
+        for (int r=0; r<ROW; r++){
+            for (int c=0; c<COL; c++){
+                if (grid[r][c] != 0){
+                    res = max(res, dfs(grid, visit, r, c));
+                }
+            }
+        }
+        return res;       
+    }
+};
