@@ -1,0 +1,75 @@
+//Time: O(n^2*logn)
+//Space: O(n^2)
+//Dijkstra single source = ?
+class Solution {
+public:
+    vector<int> direction = {0, 1, 0, -1, 0};
+    //check grid cell
+    bool valid(vector<vector<int>>& grid, int i, int j){
+        int n = grid.size();
+        return i>=0 && j>=0 && i<n && j<n;
+    }
+    
+    int maximumSafenessFactor(vector<vector<int>>& grid) {
+        //store the factor, start from each theive and do bfs
+        vector<pair<int, int>> th;
+        queue<pair<int, int>>q;
+        int n = grid.size();//square
+        //find theive as 0, others -1
+        for (int i=0; i<n; i++){
+            for (int j=0; j<n; j++){
+                if (grid[i][j] == 1){
+                    q.push({i, j});
+                    grid[i][j] = 0;
+                }else{
+                    grid[i][j] = -1;
+                }
+            }
+        }
+        //find safe factor
+        while (!q.empty()){
+            int level = 0;
+            int qlen = q.size();
+            for (int i=qlen; i>0; i--){//while(qlen-- > 0){
+                auto cur = q.front();
+                q.pop();
+                //find neighbors
+                for (int dr=0; dr<4; dr++){
+                    int new_i = cur.first + direction[dr];
+                    int new_j = cur.second + direction[dr+1];
+                    int v = grid[cur.first][cur.second];
+                    if (valid(grid, new_i, new_j) && grid[new_i][new_j] == -1){
+                        grid[new_i][new_j] = v+1;
+                        q.push({new_i, new_j});
+                    }
+                }
+            }
+        }
+
+        //priority queue, default 5, 4, 3, 2...
+        priority_queue<vector<int>> pq;
+        pq.push(vector<int>{grid[0][0], 0, 0});//{cur_max_safe, x, y}
+        grid[0][0] = -1;//-1 as visit
+
+        //BFS find max safe path
+        while(!pq.empty()){
+            auto cur = pq.top();
+            pq.pop();
+            //when reach end point
+            if (cur[1] == n-1 && cur[2] == n-1) return cur[0];
+
+            for (int dr=0; dr<4; dr++){
+                int new_i = cur[1] + direction[dr];
+                int new_j = cur[2] + direction[dr+1];
+                if (valid(grid, new_i, new_j) && grid[new_i][new_j] != -1){
+                    int new_safe = min(cur[0], grid[new_i][new_j]);
+                    pq.push(vector<int>{ new_safe,  new_i,  new_j });
+                    grid[new_i][new_j] = -1; //visit
+                }
+            }
+        }
+        return -1;
+
+        
+    }
+};
