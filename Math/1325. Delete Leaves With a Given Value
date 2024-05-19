@@ -1,0 +1,22 @@
+//Time: O(n)
+//Space: O(n)
+class Solution {
+public:
+    TreeNode* removeLeafNodes(TreeNode* root, int target) {
+        //base case
+        if (root == NULL) {
+            return NULL;
+        }
+        //visit left child
+        root->left = removeLeafNodes(root->left, target);
+        //visit right child
+        root->right = removeLeafNodes(root->right, target);
+        //check cur node is leaf && equals target
+        if (root->left == NULL && root->right == NULL && root->val == target){
+            // delete node by return NULL to parent 
+            return NULL;
+        }
+        // if the node is neither a leaf nor == target then return the root itself
+        return root;  
+    }
+};
