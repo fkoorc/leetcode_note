@@ -1,0 +1,19 @@
+ //Time: O(n)
+ //Space: O(n)
+class Solution {
+public:
+    bool evaluateTree(TreeNode* root) {
+        if (root->left == NULL && root->right ==NULL){
+            return root->val; //leaf node
+        }
+        bool lefttree = evaluateTree(root->left);
+        bool righttree = evaluateTree(root->right);
+        bool Root = NULL;
+        if (root->val == 2){//2 == or
+            Root = lefttree || righttree;
+        }else {//3 == and
+            Root = lefttree && righttree;
+        }
+        return Root;
+    }
+};
