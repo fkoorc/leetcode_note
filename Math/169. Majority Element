@@ -1,0 +1,40 @@
+### Boyer-Moore Voting Algorithm ############
+//Time: O(n)
+//Space: O(1)
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int candidate = 0, count = 0;
+        for (int &n: nums){
+            if (count == 0){
+                candidate = n;
+            }
+            count += n==candidate ? 1:-1;
+        }
+        return candidate;
+    }
+};
+
+### Traverse #################################
+//Time: O(n)
+//Space: O(1)
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        int prev = nums[0];
+        int cur = 0;
+        for (auto &num: nums){
+            if (prev != num){
+                cur = 0;
+                prev = num;
+            }
+            cur++;
+            if (cur > n/2) return num;
+        }
+        return -1;
+    }
+};
+
+
