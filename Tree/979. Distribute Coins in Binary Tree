@@ -19,3 +19,27 @@ public:
         return moves;   
     }
 };
+### extra coin #######
+//Time: O(n)
+//Space: O(n)
+class Solution {
+public:
+    //conquer
+    int dfs(TreeNode* cur, int &m){
+        if (cur == NULL)return 0;
+        int left_coin = dfs(cur->left, m);
+        int right_coin = dfs(cur->right, m);
+
+        int extra_coin =  cur->val - 1 + left_coin + right_coin;
+        m += abs(left_coin) +abs(right_coin);
+
+        return extra_coin;
+    
+    }
+    int distributeCoins(TreeNode* root) {
+        //dfs
+        int moves = 0;
+        dfs(root, moves);
+        return moves;  
+    }
+};
