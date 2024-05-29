@@ -1,0 +1,21 @@
+//TC:O(n)
+//SC:O(1)
+class Solution {
+public:
+    int equalSubstring(string s, string t, int maxCost) {
+        //cout<<int(s[0])-int('a')<<" "<< int(t[0])-int('a')<<endl;
+        int res = 0;
+        int l = 0;
+        int cur_max = 0;
+        for (int r=0; r<s.size(); r++){
+            int tmp = abs( int(s[r]) - int(t[r]) );
+            cur_max += tmp;
+            while(cur_max > maxCost){
+                cur_max -= abs( int(s[l]) - int(t[l]));
+                l++;
+            }
+            res = max(res, r-l+1); //max substring
+        }
+        return res;
+    }
+};
