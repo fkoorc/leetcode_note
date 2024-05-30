@@ -1,0 +1,23 @@
+//TC: O(nlogn) , sort
+//SC: O(1)
+class Solution {
+public:
+    int specialArray(vector<int>& nums) {
+        sort(nums.begin(), nums.end());//sort, x is unique, return -1 if no x
+        int right = nums.size();
+        int pre = -1;
+        int i=0;
+        while (i<nums.size()){
+            if (nums[i] == right or ( pre<right && right<nums[i] )){
+                return right;
+            }
+            while (i+1<nums.size() && nums[i] == nums[i+1]){
+                i++;
+            }
+            pre = nums[i];
+            i++;
+            right = nums.size()-i;
+        }
+        return -1; 
+    }
+};
