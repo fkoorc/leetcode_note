@@ -1,0 +1,28 @@
+### xor ###
+//TC: O(n)
+//SC: O(1)
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        //xor (1, n), and xor each nums, since x^x=0, the missing number showup
+        int cur = 0;
+        for (int i=0; i<=nums.size(); i++) cur ^= i; //n element  
+        for (auto &n:nums) cur ^= n; //n-1 element
+        return cur;
+        
+    }
+};
+
+### set ###
+//TC: O(n)
+//SC: O(n)
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        unordered_set<int>s(nums.begin(), nums.end());
+        for (int i=0; i<=nums.size(); i++){
+            if (s.count(i) == 0) return i;
+        }
+        return -1;
+    }
+};
