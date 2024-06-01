@@ -1,0 +1,70 @@
+### xor/bitmask ###
+//TC: O(n)
+//SC: O(1)
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        long long bitmask = 0; //for -2147483648
+        // XOR all numbers and final rest two unique numbers
+        for (int &n: nums){
+            bitmask ^= n;
+        }
+        // Get the rightmost set bit (differentiating bit) trick
+        long long diff = bitmask & (-bitmask);
+
+        // XOR all numbers include diff bit set to first
+        int first = 0, second = 0;
+        for (int &num:nums){
+            if (num&diff){
+                first ^= num;
+            }else{
+                second ^= num;
+            }
+        } 
+        // bitmask is num1^num2, bitmask^num1 == num2
+        return {first, second};
+    }
+};
+
+### hashmap ###
+//TC: O(n)
+//SC: O(n)
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        unordered_map<int, int>mp;//hashmap initial value = 0?
+        vector<int>res;
+        for (auto& n:nums) mp[n]++;   
+        //map freq
+        for (auto& m:mp){
+            if (m.second == 1)res.push_back(m.first);
+            //cout<<m.first<<""<<m.second<<endl;
+        }
+        return res;
+    }
+};
+
+### set ###
+//TC: O(n)
+//SC: O(n)
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        unordered_set<int>s;
+        for (int i=0; i<nums.size(); i++){
+            if (s.count(nums[i]) == 0){
+                s.insert(nums[i]);
+            }else{
+                s.erase(nums[i]);
+            }
+        }
+        //s should contain only two element now
+        vector<int>res;
+        while(!s.empty()){
+            res.push_back(*s.begin());
+            s.erase(*s.begin());
+        }
+
+        return res;
+    }
+};
