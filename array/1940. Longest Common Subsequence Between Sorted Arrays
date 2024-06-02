@@ -1,0 +1,20 @@
+//TC: O(n*m), n = arrays.size(), m = average len of arrays[i]
+//SC: O(n*m),
+class Solution {
+public:
+    vector<int> longestCommonSubsequence(vector<vector<int>>& arrays) {
+        //hashmap 
+        unordered_map<int, int>mp;
+        vector<int>res;
+        int arraylen = arrays.size();
+        for (auto & array: arrays){
+            for (auto &arr: array){
+                mp[arr]++;
+                if (mp[arr] == arraylen){
+                    res.push_back(arr);
+                }
+            }
+        }
+        return res;
+    }
+};
