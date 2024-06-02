@@ -1,0 +1,25 @@
+//TC: O(n x 2^n)
+//SC: O(n)
+class Solution {
+public:
+    void dfs(vector<int>& nums, int start, vector<int>& cur, vector<vector<int>>& res){
+        res.push_back(cur);
+        for (int end = start; end<nums.size(); end++){
+            if (end>start && nums[end] == nums[end-1]){
+                continue;
+            }
+            cur.push_back(nums[end]);
+            dfs(nums, end+1, cur, res);
+            cur.pop_back();
+        }
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        //backtracking
+        sort(nums.begin(), nums.end());
+
+        vector<vector<int>> res;
+        vector<int> cur;
+        dfs(nums, 0, cur, res);
+        return res;        
+    }
+};
