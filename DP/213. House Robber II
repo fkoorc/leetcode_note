@@ -1,0 +1,32 @@
+//Time: O(n)
+//Space: O(1)
+class Solution {
+public:
+    int robber1(vector<int>& nums, int start, int end) {
+        //robFrom[i] = max(robFrom[i-2] + nums[i], robFrom[i-1])
+        int pre=0; 
+        int cur=0;
+        for (int i=start; i<=end; i++){
+            int next = max(pre+nums[i], cur);
+            pre = cur;
+            cur = next;
+        } 
+        return cur;
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) {// the case where the nums is empty
+            return 0; 
+        }
+        if (n == 1) {// the case where there's only one house
+            return nums[0];
+        }
+        // Calculate the maximum profit for the two ranges:
+        // 1. From the first house to the n-2 house
+        // 2. From the second house to the last house (n-1)
+        int range1 = robber1(nums, 0, n - 2);
+        int range2 = robber1(nums, 1, n - 1);
+        
+        return max(range1, range2);
+    }
+};
