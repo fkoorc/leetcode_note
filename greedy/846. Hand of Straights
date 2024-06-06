@@ -1,0 +1,32 @@
+//sort(hand.begin(), hand.end());
+//unordered_map; O(1)hashmap 
+//map; O(logn) red-black tree
+//TC: O(nlogn) iterate all element O(n), map(logn)
+//SC: O(n)
+class Solution {
+public:
+    bool isNStraightHand(vector<int>& hand, int groupSize) {
+        if (hand.size() % groupSize != 0) return false; 
+
+        map<int, int>count;//map maintain order of key
+        for (auto & h:hand) count[h]++;
+        while(!count.empty()){
+            auto it = count.begin();//smallest, map will order
+            int cur_start = it->first;
+
+
+            for (int i=0; i<groupSize; i++){
+                int card = cur_start+i;
+                if (count.find(card) == count.end()){
+                    return false;
+                }
+
+                count[card]--;
+                if (count[card] == 0){
+                    count.erase(card);
+                }
+            }
+        }
+        return true;        
+    }
+};
