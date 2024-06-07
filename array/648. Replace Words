@@ -1,0 +1,32 @@
+//TC:TBD
+//SC:TBD
+//Hashset
+class Solution {
+public:
+    string root_valid(string word, unordered_set<string>dict_set){//O(n^2)
+        for (int i=0; i<word.size(); i++){
+            string root = word.substr(0, i+1);
+            if (dict_set.contains(root)){//dict_set.find(root)!=dict_set.end(), O(1)
+                return root;
+            }
+        }
+        return word;
+    }
+    string replaceWords(vector<string>& dictionary, string sentence) {//O(s*n^2)~O(n^3)?
+        //hashset, find shortest root, can optimize dictSet by erase longer dict?? shor_root still O(logn)
+        unordered_set<string> dict_set(dictionary.begin(), dictionary.end());
+
+
+        //getline
+        istringstream iss(sentence);
+        string word;
+        string res;
+        while(getline(iss, word, ' ')){//split iss by ' ', and store to word, O(n)
+            res += root_valid(word, dict_set) + " ";
+        }
+        
+        res.pop_back();//res.pop();?pop_back()?
+        return res;
+
+    }
+};
