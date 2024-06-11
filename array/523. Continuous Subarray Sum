@@ -1,0 +1,27 @@
+//TC: O(N log N)
+//SC: O(N)
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        //hashmap
+        int n = nums.size();  
+        unordered_map<int, int>mod;
+        int tmp = 0;
+        mod[0] = -1;//?
+        for (int i=0; i<n; i++){
+            tmp+=nums[i];
+
+
+            if (mod.find(tmp%k)!=mod.end() ){
+                if( i-mod[tmp%k]>1 )
+                    return true;
+                
+            }else{
+                mod[tmp%k] = i;// only need to hashmap find value, O(1)
+            }
+            
+
+        }
+        return false;
+    }
+};
