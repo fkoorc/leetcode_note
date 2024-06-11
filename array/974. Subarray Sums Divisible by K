@@ -1,0 +1,29 @@
+//TC: O(n+k), O(k) initial the mod_freq array, O(n) nums.lens
+//SC: O(k), mod_freq array
+
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        // sum_nums[i...j] = sum_nums[j] - sum_nums[i]
+        // find number of group sum_nums[i...j]%k = 0
+        // (sum_nums[j] - sum_nums[i])%k = 0
+        // find each sum_nums[j]%k = sum_nums[i]%k
+        int n = nums.size();
+        int mod = 0;
+        int res = 0;
+
+        // k mod_freq ex.0, 1, 2, 3, 4 are mod for k=5
+        vector<int> mod_freq(k);
+        // if any subarray itself % k = 0
+        mod_freq[0] = 1;
+        for (int i=0; i<n; i++){
+            mod = (mod+nums[i])%k;
+            if (mod<0) mod += k;
+            //how many possible subarray exist in previous array, check same mod
+            res += mod_freq[mod];
+            mod_freq[mod]++;
+        }
+
+        return res;
+    }
+};
