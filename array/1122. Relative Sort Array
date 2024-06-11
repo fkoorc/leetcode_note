@@ -1,0 +1,35 @@
+//Counting elements of arr1: O(N log N)
+//Building the result using arr2: O(M log N)
+//Adding remaining elements: O(N log N)
+//TC: O(N log N)
+//SC: O(N)
+class Solution {
+public:
+    vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+        //hashmap
+        map<int, int>mp; //map? order
+        for (auto & a1:arr1) mp[a1]++;
+
+        vector<int>res;
+        for (auto & a2:arr2){
+            while(mp.find(a2) != mp.end()){
+                res.push_back(a2);
+                mp[a2]--;
+                if(mp[a2] == 0){
+                    mp.erase(a2);
+                }
+            } 
+        }
+        while(!mp.empty()){
+            auto tmp = mp.begin();
+            int rest_first = tmp->first;
+            int count = tmp->second;
+            for (int i=0; i<count; i++){
+                res.push_back(rest_first);
+            }
+            mp.erase(rest_first);
+        }
+        return res;
+        
+    }
+};
