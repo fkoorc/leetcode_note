@@ -1,0 +1,23 @@
+//TC: O(n)
+//SC: O(1)
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        //two point, if 0 swap to front i++
+        int l=0, r=nums.size()-1;
+        int cur = 0;
+        while(cur<=r){
+            if (nums[cur] == 2){
+                swap(nums[cur], nums[r]);
+                r--;
+                cur--;
+            }else if (nums[cur] == 0){
+                swap(nums[cur], nums[l]);
+                l++;
+            }
+            cur++;
+                   
+        }
+        
+    }
+};
