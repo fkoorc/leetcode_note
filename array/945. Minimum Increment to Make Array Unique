@@ -1,0 +1,42 @@
+### counting sort ###
+//TC: O(n+m) n = nums.size(), m = max(nums), when m is small will close to O(n)
+//SC: O(n)
+class Solution {
+public:
+    int minIncrementForUnique(vector<int>& nums) {
+        unordered_map<int, int>freq;
+        for (int n:nums) freq[n]++;
+        int n = nums.size();
+        int m = *max_element(nums.begin(), nums.end()); //O(n)?
+        int res = 0;
+        for (int i=0; i<n+m; i++){
+            if (freq[i]>1){
+                int extra = freq[i] - 1;
+                freq[i+1] += extra;
+                res += extra;
+            }   
+        }
+        return res;
+    }
+};
+
+### sort ###
+//TC: O(nlogn)
+//SC: O(1)
+class Solution {
+public:
+    int minIncrementForUnique(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int pre = -1;
+        int res = 0;
+        for (auto & n:nums){
+            if (n <= pre){
+                pre += 1;
+                res += pre-n;
+            }else if (n > pre){
+                pre = n;
+            }
+        }
+        return res;
+    }
+};
