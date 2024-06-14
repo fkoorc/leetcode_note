@@ -1,0 +1,38 @@
+### counting sort ###
+//TC: O(n+m) m = max element of two array, n = array.size()
+//SC: O(n)
+class Solution {
+public:
+    int minMovesToSeat(vector<int>& seats, vector<int>& students) {
+        int n = seats.size();
+        int m = max ( *max_element(seats.begin(), seats.end()), *max_element(students.begin(), students.end()) );
+        vector<int>differ(m, 0);
+
+        for (int s:seats)differ[s-1]++;
+        for (int s:students)differ[s-1]--;
+
+        int res = 0, tmp = 0;
+        for(int i=0; i<m; i++){
+            tmp += differ[i];
+            res += abs(tmp);
+        }
+        return res;
+    }
+};
+
+
+### sort ###
+//TC: O(nlogn)
+//SC: O(1)
+class Solution {
+public:
+    int minMovesToSeat(vector<int>& seats, vector<int>& students) {
+        sort(seats.begin(), seats.end());
+        sort(students.begin(), students.end());
+        int res = 0;
+        for (int i=0; i<seats.size(); i++){
+            res += abs(seats[i]-students[i]);
+        }
+        return res;  
+    }
+};
