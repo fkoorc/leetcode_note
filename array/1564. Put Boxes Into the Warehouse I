@@ -1,0 +1,28 @@
+### trim/ put large box in first ###
+//TC: O(nlogn)
+//SC: O(1)
+class Solution {
+public:
+    int maxBoxesInWarehouse(vector<int>& boxes, vector<int>& warehouse) {
+        
+        //trim warehouse
+        int n1 = boxes.size(), n2 = warehouse.size();
+        for (int i=1; i<n2; i++){
+            warehouse[i] = min(warehouse[i], warehouse[i-1]);
+        }
+
+        //sort box
+        sort(boxes.begin(), boxes.end());
+        int count = 0;
+        int idx_b = 0;
+
+        for (int i=n2-1; i>=0; i--){
+            if (idx_b < n1 && boxes[idx_b] <= warehouse[i]){
+                idx_b++;
+                count++;
+            }
+        }
+        return count;
+        
+    }
+};
