@@ -1,0 +1,26 @@
+### trim/ put large box in first ###
+//TC: O(nlogn)
+//SC: O(1)
+class Solution {
+public:
+    int maxBoxesInWarehouse(vector<int>& boxes, vector<int>& warehouse) {
+        int n1 = boxes.size(), n2 = warehouse.size();
+        sort(boxes.begin(), boxes.end(), greater<int>());//3, 2, 1
+
+        int l = 0, r = n2-1;
+        int idx_b = 0;
+        int count = 0;
+        //traverse box large to small
+        while(l<=r && idx_b<n1){
+            if (boxes[idx_b] <= warehouse[l]){
+                count++;
+                l++;
+            }else if (boxes[idx_b] <= warehouse[r]){
+                count++;
+                r--;
+            }
+            idx_b++;//if this box can't fit both side of warehouse, then go next box
+        }
+        return count;
+    }
+};
