@@ -1,0 +1,36 @@
+### priority_queue ###
+//TC: O(nlogn)
+//SC: O(n)
+class Solution {
+public:
+    int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {
+        vector<pair<int, int>>ipo;
+        int n = profits.size();
+        for (int i=0; i<n; i++){
+            ipo.push_back({capital[i], profits[i]});
+        }
+
+        sort(ipo.begin(), ipo.end());//sort by captital
+        int res = 0;
+        priority_queue<int>q;//3, 2, 1
+        int x = 0;
+        for (int i=0; i<k; i++){//only k rounds
+            //each round choose largeest profit items, and add the profit after finish
+            //find every items we can do this round
+            while( x < ipo.size() && ipo[x].first <= w ){//start money
+                q.push(ipo[x].second);//earning money maximum
+                x++;
+            }
+
+
+            if (q.empty())break;//if empty at first place, means no ipo item can do
+
+            int tmp = q.top();
+            w += tmp;
+            q.pop();
+        }
+
+        return w;
+        
+    }
+};
