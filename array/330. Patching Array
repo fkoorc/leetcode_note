@@ -1,0 +1,26 @@
+//TC: O(m+logn)total number of increment for index i is m, and the total number of doubling miss is logn
+//SC: O(1)
+class Solution {
+public:
+    int minPatches(vector<int>& nums, int n) {
+        //[1, 2, 4, 11, 30], n = 50
+        //[1, 2, 4] n = [0,7)
+        //[1, 2, 4, 11]+8, 8+8 = 16, n=[0, 16)
+        //[1, 2, 4, 8, 11], 16+11 = 27, n=[0, 27)]
+        //[1, 2, 4, 8, 11, 30], 27+30 = 54, n = [0, 54)>50
+        //[1, 2, 4, 8, 11, 27, 30], add = 8 and 27, res = 2
+        long miss = 1;// Start smallest number need
+        int ori_size = nums.size();
+        long i = 0;
+        while(miss<=n){
+            if (i>=nums.size() || nums[i]>miss){
+                nums.insert(nums.begin()+i, miss);
+            }
+            miss = miss + nums[i];
+            i++;
+        }
+        
+        return nums.size()-ori_size;
+        
+    }
+};
