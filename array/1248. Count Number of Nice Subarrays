@@ -1,0 +1,31 @@
+//TC: O(n)
+//SC: O(n)
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        //sliding windows
+        queue<int>q;
+        int l=-1, odd = 0;
+        int res = 0;
+        for (int r=0; r<nums.size(); r++){
+
+            if (nums[r]%2 == 1){
+                odd++;
+                q.push(r);
+            }
+            if (odd > k){
+                int tmp = q.front();
+                q.pop();
+                odd--;
+                l = tmp;
+            }
+            if (odd == k){//pass when use "q.size() == k", no need use int odd
+                res += q.front() - l;
+                // if q.front() = 0, then l must set to -1 to get at least one subarray
+            }
+            
+        }
+        return res;
+        
+    }
+};
