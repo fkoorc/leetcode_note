@@ -1,0 +1,23 @@
+//TC: O(nlogn)
+//SC: (n)
+class Solution {
+public:
+    long long maximumImportance(int n, vector<vector<int>>& roads) {
+        //sort roads, if edge is same, it no matter where n placed
+        vector<long long>degree(n, 0);//node 0~n-1
+        for (vector<int> r:roads){
+            degree[r[0]]++;
+            degree[r[1]]++;
+        }
+        sort(degree.begin(), degree.end());
+        long long res = 0;
+        long long idx = 1;
+        for (int d:degree){//
+            res += idx*d;
+            idx++;
+        }
+
+        
+        return res;
+    }
+};
