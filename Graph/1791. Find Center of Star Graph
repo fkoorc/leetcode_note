@@ -1,0 +1,23 @@
+//TC: O(n)
+//SC: O(n)
+class Solution {
+public:
+    int findCenter(vector<vector<int>>& edges) {
+        //centor is the only node has edge>1
+        unordered_map<int, int> degree;
+        for (auto & e:edges){
+            int u = e[0], v = e[1];
+            degree[u]++;
+            degree[v]++;
+        }
+        for (auto & d:degree){
+            if (d.second>1){
+                return d.first;
+            }
+        }
+
+
+
+        return -1;
+    }
+};
