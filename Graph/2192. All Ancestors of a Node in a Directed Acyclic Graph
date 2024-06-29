@@ -1,0 +1,50 @@
+/**
+Time Complexity:
+
+Graph Construction: O(E) where E is the number of edges.
+DFS Traversal: For each node, in the worst case, DFS could visit all nodes connected to it. If V is the number of vertices (nodes), performing DFS from each node would take O(V * (V + E)). This is because each DFS call might touch all vertices and edges.
+Sorting the Result: Sorting each vector in res would take O(V log V) for each node, making it O(V^2 log V) for all nodes.
+Combining these, the total time complexity is approximately O(V * (V + E) + V^2 log V).
+
+Space Complexity:
+
+Graph Storage: O(V + E) for storing the graph as an adjacency list.
+Visited Array: O(V) for the visit array used in DFS.
+Result Storage: O(V^2) in the worst case if each node is an ancestor of every other node.
+So, the overall space complexity is O(V^2 + E).
+
+**/
+class Solution {
+public:
+    void dfs(vector<vector<int>>& graph, int ancestor, int cur, vector<vector<int>>& res, vector<bool>& visit){
+        visit[cur] = true;
+        for (int child:graph[cur]){
+            if (!visit[child]){
+                res[child].push_back(ancestor);
+                dfs(graph, ancestor, child, res, visit);
+            }
+      
+
+        }
+    }
+    vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
+        //adjacent node
+        vector<vector<int>>graph(n);//map for O(nlogn)?
+        for (auto & e:edges){
+            graph[e[0]].push_back(e[1]);
+        }
+        //DFS update n node to every child
+        vector<vector<int>>res(n);
+        for(int i=0; i<n; i++){
+            vector<bool>visit(n, false);//n+1?
+            dfs(graph, i, i, res, visit);
+        }
+        //sort each vector
+        for(int i=0; i<n; i++){
+            sort(res[i].begin(), res[i].end());
+        }
+
+        return res;
+        
+    }
+};
