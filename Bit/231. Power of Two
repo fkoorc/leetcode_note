@@ -1,0 +1,15 @@
+//TC: O(1)
+//SC: O(1)
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        //bit
+        //n-1 in binary will present the rightmost 1-bit to 0 and the rest right-side bit to 1
+        //power of two should only have 1 bit = 1,
+        //ex. 2 = 10, 4 = 100, 8 = 1000, 16 = 10000
+        //hence if n & n-1 = 0, it's the power of two
+        if (n<=0)return false;
+        return (n & n-1) == 0 ? true : false;
+        
+    }
+};
