@@ -1,0 +1,36 @@
+//TC: O(k),which k is the number of 1-bit,  O(32) for the worst case
+//SC: O(1)
+class Solution {
+public:
+    int hammingWeight(int n) {
+        //n-1 means the rightmost 1-bit turn to 0, and the rest right-bit turn to 1
+        //hence n & (n-1) will substract the rightmost 1-bit
+        int res = 0;
+        while (n){//if n!=0
+            n = n & (n-1);
+            res++;
+
+        }
+        return res;
+    }
+
+};
+
+
+
+//TC: O(32)
+//SC: O(1)
+class Solution {
+public:
+    int hammingWeight(int n) {
+        //dectobi(n);//5->0000101
+        int res = 0;
+        for (int i=31; i>=0; i--){
+            int k = n >> i;
+            if (k&1) res += 1;
+        }
+
+        return res;
+        
+    }
+};
