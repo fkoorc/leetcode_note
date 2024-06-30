@@ -1,3 +1,15 @@
+### (n & (-n)) == n ###
+//TC: O(1)
+//SC: O(1)
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if (n<=0)return false;
+        return (n & (-n)) == n;
+    }
+};
+
+### (n & n-1) == 0 ###
 //TC: O(1)
 //SC: O(1)
 class Solution {
@@ -10,6 +22,26 @@ public:
         //hence if n & n-1 = 0, it's the power of two
         if (n<=0)return false;
         return (n & n-1) == 0 ? true : false;
+        
+    }
+};
+
+### check every 32-bit ###
+//TC: O(1)
+//SC: O(1)
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        //32 bit
+        int count = 0;
+        if (n<=0)return false;
+        for(int i=31; i>=0; i--){
+            int k = n>>i;
+            if (k&1){
+                count++;
+            }
+        }
+        return count == 1;
         
     }
 };
