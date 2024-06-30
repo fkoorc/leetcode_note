@@ -1,0 +1,38 @@
+
+### Set ###
+//TC:O(n)
+//SC:O(n)
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        unordered_set<int>s;
+        int n = nums.size();
+        for (int i=0; i<n; i++){
+            if (s.find(nums[i])!=s.end()){
+                //cout<<*s.find(nums[i])<<endl;
+                return nums[i];
+            }
+            s.insert(nums[i]);
+        }
+        
+    return 1;
+    }
+};
+
+
+### Sort ###
+//TC:O(nlogn)
+//SC:O(1)
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        for (int i=1; i<nums.size(); i++){
+            if (nums[i] == nums[i-1]){
+                return nums[i];
+            }
+        }
+        
+    return -1;
+    }
+};
