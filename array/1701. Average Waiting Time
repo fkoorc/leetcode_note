@@ -1,0 +1,20 @@
+//TC: O(n)
+//SC: O(1)
+class Solution {
+public:
+    double averageWaitingTime(vector<vector<int>>& customers) {
+        int n = customers.size();
+        double total_wait = 0;
+        int cur_wait = customers[0][0];
+        for (int i=0; i<n; i++){
+            cur_wait = max(cur_wait, customers[i][0]);
+            cur_wait += customers[i][1];
+            total_wait += (cur_wait - customers[i][0]);
+
+        }
+
+
+        return total_wait/n;
+        
+    }
+};
